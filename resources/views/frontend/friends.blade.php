@@ -20,14 +20,7 @@
             $buttonPrinted = false;
             @endphp
             @if ($profile->id == Auth::user()->id)
-            @php
-            $buttonPrinted = false;
-            @endphp
-            @if ($profile->id == Auth::user()->id)
 
-           @else
-
-           @if ($profile->friends !=null)
            @else
 
            @if ($profile->friends !=null)
@@ -43,40 +36,7 @@
         @endphp
       @elseif ($key['userid'] == Auth::user()->id && $key['status'] == 'accepted')
       <a href="{{ route('cancel', ['userid' => Auth::user()->id, 'userid2' => $profile->id]) }}" title="" data-ripple="">remove Friend</a>
-           @foreach ($profile->friends as $key )
 
-
-           @if ($key['userid'] == Auth::user()->id && $key['status'] == 'pending'&& $key['type']=='res' )
-            <a href="{{ route('cancel', ['userid' => Auth::user()->id, 'userid2' => $profile->id]) }}" title="" data-ripple="">cancel request</a>
-          @php
-          $buttonPrinted = true;
-          break;
-        @endphp
-      @elseif ($key['userid'] == Auth::user()->id && $key['status'] == 'accepted')
-      <a href="{{ route('cancel', ['userid' => Auth::user()->id, 'userid2' => $profile->id]) }}" title="" data-ripple="">remove Friend</a>
-
-          @php
-              $buttonPrinted = true;
-              break;
-          @endphp
-      @elseif ($key['userid'] == Auth::user()->id && $key['status'] == 'pending' && $key['type']=='sent')
-      <a href="{{ route('accept', ['userid' => Auth::user()->id, 'userid2' => $profile->id]) }}" title="" data-ripple="">confirm</a>
-      <a href="{{ route('cancel', ['userid' => Auth::user()->id, 'userid2' => $profile->id]) }}" title="" data-ripple="" style="color: white;">Reject</a>
-
-          @php
-              $buttonPrinted = true;
-              break;
-          @endphp
-
-
-           @endif
-    @endforeach
-           @endif
-    @if (!$buttonPrinted)
-    <a href="{{ route('homee', ['userid' => Auth::user()->id, 'userid2' => $profile->id]) }}" title="" data-ripple="">Add Friend </a>
-    @endif
-    @endif
-       </div>
           @php
               $buttonPrinted = true;
               break;
@@ -146,8 +106,6 @@
                                 <a class="" href="timeline-videos.html" title="" data-ripple="">Videos</a> --}}
                                 <a class="active" href="{{route('friends',['userid' => Auth::user()->id ])}}" title="" data-ripple="">Friends</a>
                                 <a class="" href="{{route('chat.index',['userid' => Auth::user()->id ])}}" title="" data-ripple="">Messeges</a>                                {{-- <a class="" href="timeline-groups.html" title="" data-ripple="">Groups</a> --}}
-                                <a class="active" href="{{route('friends',['userid' => Auth::user()->id ])}}" title="" data-ripple="">Friends</a>
-                                <a class="" href="{{route('chat.index',['userid' => Auth::user()->id ])}}" title="" data-ripple="">Messeges</a>                                {{-- <a class="" href="timeline-groups.html" title="" data-ripple="">Groups</a> --}}
                                 {{-- <a class="" href="#" title="" data-ripple="">more</a> --}}
                             </li>
                         </ul>
@@ -191,8 +149,10 @@
                             <div class="nearly-pepls">
                         <figure>
                             <a href="{{route('profilee',['userid' => $user->id ])}}" title=""><img src="{{asset('images/'. $user->profile_image)}}" alt=""></a>
+                            <a href="{{route('profilee',['userid' => $user->id ])}}" title=""><img src="{{asset('images/'. $user->profile_image)}}" alt=""></a>
                         </figure>
                         <div class="pepl-info">
+                            <h4><a href="{{route('profilee',['userid' => $user->id ])}}" title="">{{$user->name}}</a></h4>
                             <h4><a href="{{route('profilee',['userid' => $user->id ])}}" title="">{{$user->name}}</a></h4>
                             <span>{{$user->email}}</span>
                             <a href="{{ route('cancel', ['userid' => Auth::user()->id, 'userid2' => $user->id]) }}" title="" class="add-butn more-action" data-ripple="">unfriend</a>
@@ -217,7 +177,6 @@
                     @endif
                     @if ($profile->friends !== null)
             @foreach ($profile->friends as $friend )
-                    @if ( $friend['status'] == 'pending' && $friend['type']=='res' )
                     @if ( $friend['status'] == 'pending' && $friend['type']=='res' )
 
                     @php

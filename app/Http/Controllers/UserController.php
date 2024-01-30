@@ -17,9 +17,11 @@ return view('frontend.home',compact('user'));
 
     public function update($authid,$userid2){
         $auth=User::find($authid);
+
         $user2=User::find($userid2);
         $json =$auth->friends;
         $json2 = $user2->friends ?? [];
+
         $num=0;
         if($json2 != null){
 
@@ -30,6 +32,7 @@ return view('frontend.home',compact('user'));
                 }
             }
         }
+
         else
         {
 
@@ -50,8 +53,25 @@ return view('frontend.home',compact('user'));
 
             $json[] = ['userid' => $userid2 , 'type'=> 'sent','status' => 'pending'];
 
+
+        }
+        if($json != null){
+
+            foreach($json as $arr){
+                if($arr['userid'] == $authid){
+                    $num++;
+                    break;
+                }
+            }
+        }
+        else
+        {
+
+            $json[] = ['userid' => $userid2 , 'type'=> 'sent','status' => 'pending'];
+
         }
         if($num == 0){
+
 
         $user2->update([
             'friends'=> $json2,
@@ -59,13 +79,16 @@ return view('frontend.home',compact('user'));
         $auth->update([
             'friends'=> $json,
         ]);
+
         }
         return redirect()->back();
     }
     public function canelreq($authid,$userid){
 
+
         $auth=User::find($authid);
         $user2=User::find($userid);
+
         $json =$auth->friends;
         $json2=$user2->friends;
         foreach($json2 as $key =>$value){
@@ -81,6 +104,7 @@ return view('frontend.home',compact('user'));
             }
         }
 
+
         $user2->update([
             'friends'=> $json2,
         ]);
@@ -88,27 +112,23 @@ return view('frontend.home',compact('user'));
             'friends'=> $json,
         ]);
 
+
         return redirect()->back()->with('info' , 'cancel request succesfully');
     }
     public function accept($authid, $userid){
         $user = User::find($userid);
         $auth=User::find($authid);
         $json =$auth->friends;
-        $friends = $user->friends;
+        $friends=$user->friends;
+
 
         foreach($friends as $key => $friend){
+
             if($friend['userid'] == $authid){
                 $friends[$key]['status'] = 'accepted';
                 break;
             }
         }
-        foreach($json as $key => $friend){
-            if($friend['userid'] == $userid){
-                $json[$key]['status'] = 'accepted';
-                break;
-            }
-        }
-
         foreach($json as $key => $friend){
             if($friend['userid'] == $userid){
                 $json[$key]['status'] = 'accepted';
@@ -124,6 +144,9 @@ return view('frontend.home',compact('user'));
         $auth->update([
             'friends' => $json
         ]);
+
+
+
 
 
         return redirect()->back()->with('message', 'You accepted the friend');

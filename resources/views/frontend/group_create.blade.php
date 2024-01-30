@@ -1,4 +1,3 @@
-
 @extends('frontend.main_master')
 @section('header')
 @include('frontend.body.header')

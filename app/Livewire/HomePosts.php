@@ -13,7 +13,6 @@ class HomePosts extends Component
 {
 
     public $content;
-    public $post;
     public function render()
     {
         $posts= Post::where('type',null)->with('comment')->orderBy('created_at', 'desc')->get();

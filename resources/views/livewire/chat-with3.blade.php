@@ -43,22 +43,4 @@
 </div>
 
 <!-- Add Livewire script if not already included -->
-<script>
-    document.addEventListener('livewire:load', function () {
-        let textContentScroll = document.querySelector('.chatting-area');
-        textContentScroll.scrollTop = textContentScroll.scrollHeight;
 
-        let textbox = document.getElementById('new-message');
-        textbox.addEventListener('keypress', function (e) {
-            if (e.key === 'Enter' && !e.shiftKey) {
-                Livewire.emit('send_message');
-                e.preventDefault();
-            }
-        });
-
-        Livewire.on('messageSent', function () {
-            textContentScroll.scrollTop = textContentScroll.scrollHeight;
-            textbox.value = '';
-        });
-    });
-</script>

@@ -10,15 +10,13 @@
         <ul class="list-group mt-3">
             @if($users)
             @foreach($users as $user)
-          <a href="{{route('profilee',['userid' => $user->id ])}}"><li class="list-group-item">{{ $user->name }}</li></a>
+          <a href="{{route('profilee',['userid' => $user->id ])}}"><li class="list-group-item">user :{{ $user->name }}</li></a>
             @endforeach
             @endif
-        </ul>
 
-        <ul class="list-group mt-3">
             @if($groups)
                 @foreach($groups as $group)
-                 <a href="{{route('group.dashboard',$group->id)}}">  <li class="list-group-item">{{ $group->name }}</li></a>
+                 <a href="{{route('group.dashboard',$group->id)}}">  <li class="list-group-item">group: {{ $group->name }}</li></a>
                     @endforeach
                     @endif
         </ul>

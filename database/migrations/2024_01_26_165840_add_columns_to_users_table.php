@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->text('profile_image')->default('download.png');
-            $table->text('profile_cover')->default('cover-default.png');
+            $table->string('profile_image')->default('download.png');
+            $table->string('profile_cover')->default('cover-default.png');
             $table->json('friends')->nullable();
         });
     }
